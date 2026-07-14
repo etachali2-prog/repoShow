@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Technic Report</title>
+    <style>
+        body{
+            background-color: aquamarine;
+        }
+        iframe{
+            width: 5000px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Technic</h1>
+    
+   <button onclick="window.print()">Print This Sheet</button>
+     
+
+     <script>
+        function checkPassword() {
+            // Set your password here!
+            const correctPassword = "MySecretPassword123"; 
+            
+            const userPassword = prompt("Please enter the password to view this sheet:");
+
+            if (userPassword === correctPassword) {
+                // Show the sheet if the password is correct
+                document.getElementById('protected-content').style.display = 'block';
+                document.body.style.paddingTop = '20px'; // Reset padding
+            } else {
+                alert("Incorrect password. Access denied.");
+                window.location.href = "https://google.com"; // Redirect them away
+            }
+        }
+
+        // Run the password check as soon as the page starts loading
+        window.onload = checkPassword;
+    </script>
+</body>
+</html>
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTrhJvN7IdtRcSa6up1MRzgUVeM_RKUPvq8XIxsZPxO3M0TMH9CQ55fcEYMgS4WTno64TcA1VIw35gK/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
