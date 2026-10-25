@@ -229,7 +229,7 @@ footer { text-align: center; color: #64748b; font-size: 12px; padding: 20px; }
   STEP 1:
   Replace the URL below with your deployed Apps Script URL ending in /exec.
 */
-const SCRIPT_URL = "PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOP4tjJ77mQi3Vg2Ul9PP3KVERbDYzLLfzf_GTn5F2gKyIjz1EdH8ZJs21dJoMBnVw/exec";
 
 /*
   STEP 2:
@@ -335,7 +335,7 @@ function getPayload() {
 form.addEventListener("submit", async function(event) {
   event.preventDefault();
 
-  if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbxOP4tjJ77mQi3Vg2Ul9PP3KVERbDYzLLfzf_GTn5F2gKyIjz1EdH8ZJs21dJoMBnVw/exec" ||
+  if (SCRIPT_URL === "" ||
       !SCRIPT_URL.startsWith("https://script.google.com/")) {
     showStatus(
       "Setup required: paste your deployed Google Apps Script /exec URL into SCRIPT_URL.",
