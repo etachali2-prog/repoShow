@@ -509,44 +509,7 @@ body {
     MELBA Technical Department | Reliable Maintenance Records
 </footer>
 
-<script>
-/*
-  IMPORTANT:
-  This password check is only a basic visual gate.
-  A password embedded in browser JavaScript is not secure:
-  visitors can inspect the source code to find it.
 
-  Replace the example password below with your chosen password.
-  For real confidential data, use server-side authentication.
-*/
-const correctPassword = "MySecretPassword123";
-
-const passwordScreen = document.getElementById("passwordScreen");
-const protectedContent = document.getElementById("protectedContent");
-const passwordInput = document.getElementById("passwordInput");
-const passwordError = document.getElementById("passwordError");
-
-document.getElementById("passwordForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    if (passwordInput.value === correctPassword) {
-        passwordScreen.style.display = "none";
-        protectedContent.hidden = false;
-        passwordError.textContent = "";
-    } else {
-        passwordError.textContent = "Incorrect password. Please try again.";
-        passwordInput.value = "";
-        passwordInput.focus();
-    }
-});
-
-function refreshSheet() {
-    const frame = document.getElementById("sheetFrame");
-    const baseURL = frame.src.split("&refresh=")[0];
-
-    frame.src = baseURL + "&refresh=" + Date.now();
-}
-</script>
 
 </body>
 </html>
