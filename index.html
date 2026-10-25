@@ -1,47 +1,553 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Technic Report</title>
-    <style>
-        body{
-            background-color: aquamarine;
-        }
-        iframe{
-            width: 20000px;
-            height:10000px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MELBA | Technical Report</title>
+
+<style>
+:root {
+    --navy: #142b4a;
+    --blue: #1d4e89;
+    --gold: #d6a746;
+    --background: #f1f5f9;
+    --border: #dce3ed;
+    --text: #243247;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+}
+
+/* HEADER */
+.header {
+    background: linear-gradient(135deg, #142b4a, #234c78);
+    color: white;
+    padding: 25px 20px;
+    border-bottom: 5px solid var(--gold);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 58px;
+    height: 58px;
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    font-weight: bold;
+    color: var(--gold);
+}
+
+.brand h1 {
+    margin: 0 0 8px;
+    font-size: 23px;
+}
+
+.brand p {
+    margin: 0;
+    color: #dbe5f1;
+    font-size: 14px;
+}
+
+/* MAIN CONTENT */
+.container {
+    max-width: 1400px;
+    margin: 25px auto;
+    padding: 0 20px;
+}
+
+.page-title {
+    margin-bottom: 20px;
+}
+
+.page-title h2 {
+    color: var(--navy);
+    font-size: 25px;
+    margin: 0 0 8px;
+}
+
+.page-title p {
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* BUTTONS */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.08);
+}
+
+.btn-back {
+    background: var(--navy);
+    color: white;
+}
+
+.btn-print {
+    background: var(--gold);
+    color: #182536;
+}
+
+.btn-refresh {
+    background: white;
+    color: var(--navy);
+    border: 1px solid var(--border);
+}
+
+/* INFORMATION CARD */
+.info-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 3px 12px rgba(20, 43, 74, 0.04);
+}
+
+.info-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #e7eef8;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
+
+.info-card h3 {
+    margin: 0 0 5px;
+    color: var(--navy);
+    font-size: 15px;
+}
+
+.info-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* SPREADSHEET VIEWER */
+.sheet-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(20, 43, 74, 0.07);
+}
+
+.sheet-heading {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 17px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.sheet-heading h3 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 17px;
+}
+
+.sheet-heading span {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.sheet-viewer {
+    width: 100%;
+    height: 72vh;
+    min-height: 480px;
+    background: #f8fafc;
+}
+
+.sheet-viewer iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: white;
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 25px 15px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+/* PASSWORD SCREEN */
+.password-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #10223d, #1d4e89);
+}
+
+.password-box {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.lock-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #edf2f8;
+    color: var(--navy);
+    font-size: 30px;
+}
+
+.password-box h2 {
+    color: var(--navy);
+    margin: 0 0 10px;
+}
+
+.password-box p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.password-box input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    margin: 12px 0;
+    font-size: 15px;
+}
+
+.password-box button {
+    width: 100%;
+}
+
+.password-error {
+    color: #b91c1c !important;
+    min-height: 20px;
+    font-size: 13px !important;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .header {
+        padding: 20px 15px;
+    }
+
+    .brand h1 {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+
+    .brand p {
+        font-size: 12px;
+    }
+
+    .logo {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+    }
+
+    .container {
+        padding: 0 12px;
+        margin: 18px auto;
+    }
+
+    .page-title h2 {
+        font-size: 22px;
+    }
+
+    .actions .btn {
+        flex: 1;
+    }
+
+    .sheet-viewer {
+        height: 70vh;
+        min-height: 400px;
+    }
+
+    .password-box {
+        padding: 24px;
+    }
+}
+
+/* PRINT */
+@media print {
+    body {
+        background: white;
+    }
+
+    .no-print,
+    .password-screen,
+    .footer {
+        display: none !important;
+    }
+
+    .header {
+        background: white !important;
+        color: black !important;
+        border-bottom: 3px solid #b18a32;
+        padding: 12px 0;
+    }
+
+    .brand h1,
+    .brand p {
+        color: black !important;
+    }
+
+    .logo {
+        color: black;
+        border-color: #b18a32;
+    }
+
+    .container {
+        margin: 10px 0;
+        padding: 0;
+    }
+
+    .sheet-card {
+        border: 1px solid #aaa;
+        box-shadow: none;
+    }
+
+    .sheet-viewer {
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+    }
+
+    .sheet-viewer iframe {
+        width: 100%;
+        height: 650px;
+    }
+}
+</style>
 </head>
+
 <body>
-    
-    <a href="https://etachali2-prog.github.io/all/">BACK</a>
-    <h1>Technic</h1>
-    
-   <button onclick="window.print()">Print This Sheet</button>
-     
 
-     <script>
-        function checkPassword() {
-            // Set your password here!
-            const correctPassword = "MySecretPassword123"; 
-            
-            const userPassword = prompt("Please enter the password to view this sheet:");
+<!-- PASSWORD SCREEN -->
+<div class="password-screen" id="passwordScreen">
+    <div class="password-box">
+        <div class="lock-icon">🔒</div>
 
-            if (userPassword === correctPassword) {
-                // Show the sheet if the password is correct
-                document.getElementById('protected-content').style.display = 'block';
-                document.body.style.paddingTop = '20px'; // Reset padding
-            } else {
-                alert("Incorrect password. Access denied.");
-                window.location.href = "https://google.com"; // Redirect them away
-            }
-        }
+        <h2>Restricted Access</h2>
 
-        // Run the password check as soon as the page starts loading
-        window.onload = checkPassword;
-    </script>
-    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTrhJvN7IdtRcSa6up1MRzgUVeM_RKUPvq8XIxsZPxO3M0TMH9CQ55fcEYMgS4WTno64TcA1VIw35gK/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+        <p>
+            MELBA Technical Department<br>
+            Enter the password to access this report.
+        </p>
+
+        <form id="passwordForm">
+            <input
+                id="passwordInput"
+                type="password"
+                placeholder="Enter access password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button class="btn btn-back" type="submit">
+                Unlock Report
+            </button>
+        </form>
+
+        <p class="password-error" id="passwordError"></p>
+    </div>
+</div>
+
+<!-- REPORT PAGE -->
+<header class="header">
+    <div class="header-content">
+
+        <div class="brand">
+            <div class="logo">M</div>
+
+            <div>
+                <h1>MELBA PRINTING, PUBLISHING &amp; PACKAGING S.C.</h1>
+                <p>Technical Department | Maintenance Management</p>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<main class="container" id="protectedContent" hidden>
+
+    <section class="page-title">
+        <h2>Technical Report Dashboard</h2>
+        <p>
+            Access and review technical records using the report viewer below.
+        </p>
+    </section>
+
+    <div class="actions no-print">
+
+        <a class="btn btn-back"
+           href="https://etachali2-prog.github.io/all/">
+            ← Back
+        </a>
+
+        <button class="btn btn-print" onclick="window.print()">
+            🖨 Print This Sheet
+        </button>
+
+        <button class="btn btn-refresh" onclick="refreshSheet()">
+            ↻ Refresh Sheet
+        </button>
+
+    </div>
+
+    <section class="info-card">
+        <div class="info-icon">📊</div>
+
+        <div>
+            <h3>Technical Records</h3>
+            <p>
+                View the latest information available in the published
+                Google Sheet. Use the spreadsheet controls to review its
+                rows and columns.
+            </p>
+        </div>
+    </section>
+
+    <section class="sheet-card">
+
+        <div class="sheet-heading">
+            <h3>Technical Data Sheet</h3>
+            <span>Google Sheets Viewer</span>
+        </div>
+
+        <div class="sheet-viewer">
+            <iframe
+                id="sheetFrame"
+                title="MELBA Technical Google Sheet"
+                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTrhJvN7IdtRcSa6up1MRzgUVeM_RKUPvq8XIxsZPxO3M0TMH9CQ55fcEYMgS4WTno64TcA1VIw35gK/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+                loading="lazy">
+            </iframe>
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+    MELBA Technical Department | Reliable Maintenance Records
+</footer>
+
+<script>
+/*
+  IMPORTANT:
+  This password check is only a basic visual gate.
+  A password embedded in browser JavaScript is not secure:
+  visitors can inspect the source code to find it.
+
+  Replace the example password below with your chosen password.
+  For real confidential data, use server-side authentication.
+*/
+const correctPassword = "MySecretPassword123";
+
+const passwordScreen = document.getElementById("passwordScreen");
+const protectedContent = document.getElementById("protectedContent");
+const passwordInput = document.getElementById("passwordInput");
+const passwordError = document.getElementById("passwordError");
+
+document.getElementById("passwordForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (passwordInput.value === correctPassword) {
+        passwordScreen.style.display = "none";
+        protectedContent.hidden = false;
+        passwordError.textContent = "";
+    } else {
+        passwordError.textContent = "Incorrect password. Please try again.";
+        passwordInput.value = "";
+        passwordInput.focus();
+    }
+});
+
+function refreshSheet() {
+    const frame = document.getElementById("sheetFrame");
+    const baseURL = frame.src.split("&refresh=")[0];
+
+    frame.src = baseURL + "&refresh=" + Date.now();
+}
+</script>
+
 </body>
 </html>
-
+```
