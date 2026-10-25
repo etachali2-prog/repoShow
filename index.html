@@ -277,10 +277,20 @@ body {
     }
 }
 
-/* PRINT */
+/* A4 LANDSCAPE PRINT */
+@page {
+    size: A4 landscape;
+    margin: 8mm;
+}
+
 @media print {
     body {
-        background: white;
+        background: white !important;
+        margin: 0;
+        padding: 0;
+        color: black;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
     .no-print,
@@ -291,8 +301,12 @@ body {
     .header {
         background: white !important;
         color: black !important;
-        border-bottom: 3px solid #b18a32;
-        padding: 12px 0;
+        padding: 5mm 0;
+        border-bottom: 2px solid #b18a32;
+    }
+
+    .header-content {
+        max-width: none;
     }
 
     .brand h1,
@@ -306,23 +320,53 @@ body {
     }
 
     .container {
-        margin: 10px 0;
+        width: 100%;
+        max-width: none;
+        margin: 0;
         padding: 0;
     }
 
-    .sheet-card {
-        border: 1px solid #aaa;
+    .page-title {
+        margin: 4mm 0;
+    }
+
+    .page-title h2 {
+        font-size: 16pt;
+    }
+
+    .page-title p {
+        font-size: 9pt;
+    }
+
+    .info-card {
+        padding: 3mm;
+        margin-bottom: 4mm;
         box-shadow: none;
     }
 
+    .sheet-card {
+        width: 100%;
+        border: 1px solid #aaa;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    .sheet-heading {
+        padding: 3mm;
+    }
+
     .sheet-viewer {
-        height: 650px;
+        width: 100%;
+        height: 180mm;
         min-height: 0;
+        overflow: visible;
     }
 
     .sheet-viewer iframe {
+        display: block;
         width: 100%;
-        height: 650px;
+        height: 180mm;
+        border: 0;
     }
 }
 </style>
@@ -333,7 +377,6 @@ body {
 <!-- HEADER -->
 <header class="header">
     <div class="header-content">
-
         <div class="brand">
             <div class="logo">M</div>
 
@@ -342,11 +385,10 @@ body {
                 <p>Technical Department | Maintenance Management</p>
             </div>
         </div>
-
     </div>
 </header>
 
-<!-- MAIN REPORT PAGE -->
+<!-- MAIN REPORT -->
 <main class="container">
 
     <section class="page-title">
@@ -383,7 +425,7 @@ body {
             <p>
                 View the latest information available in the published
                 Google Sheet. Use the spreadsheet controls to review
-                the available rows and columns.
+                its rows and columns.
             </p>
         </div>
     </section>
