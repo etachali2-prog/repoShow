@@ -63,6 +63,7 @@ body {
     font-size: 27px;
     font-weight: bold;
     color: var(--gold);
+    flex-shrink: 0;
 }
 
 .brand h1 {
@@ -192,7 +193,7 @@ body {
 }
 
 .sheet-heading {
-    background: #fff;
+    background: white;
     border-bottom: 1px solid var(--border);
     padding: 17px 20px;
     display: flex;
@@ -236,71 +237,6 @@ body {
     font-size: 12px;
 }
 
-/* PASSWORD SCREEN */
-.password-screen {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #10223d, #1d4e89);
-}
-
-.password-box {
-    width: 100%;
-    max-width: 420px;
-    background: white;
-    border-radius: 16px;
-    padding: 30px;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-}
-
-.lock-icon {
-    width: 70px;
-    height: 70px;
-    margin: 0 auto 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #edf2f8;
-    color: var(--navy);
-    font-size: 30px;
-}
-
-.password-box h2 {
-    color: var(--navy);
-    margin: 0 0 10px;
-}
-
-.password-box p {
-    color: #64748b;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.password-box input {
-    width: 100%;
-    padding: 13px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    margin: 12px 0;
-    font-size: 15px;
-}
-
-.password-box button {
-    width: 100%;
-}
-
-.password-error {
-    color: #b91c1c !important;
-    min-height: 20px;
-    font-size: 13px !important;
-}
-
 /* MOBILE */
 @media (max-width: 600px) {
     .header {
@@ -339,10 +275,6 @@ body {
         height: 70vh;
         min-height: 400px;
     }
-
-    .password-box {
-        padding: 24px;
-    }
 }
 
 /* PRINT */
@@ -352,7 +284,6 @@ body {
     }
 
     .no-print,
-    .password-screen,
     .footer {
         display: none !important;
     }
@@ -385,9 +316,8 @@ body {
     }
 
     .sheet-viewer {
-        height: auto;
+        height: 650px;
         min-height: 0;
-        overflow: visible;
     }
 
     .sheet-viewer iframe {
@@ -400,37 +330,7 @@ body {
 
 <body>
 
-<!-- PASSWORD SCREEN -->
-<div class="password-screen" id="passwordScreen">
-    <div class="password-box">
-        <div class="lock-icon">🔒</div>
-
-        <h2>Restricted Access</h2>
-
-        <p>
-            MELBA Technical Department<br>
-            Enter the password to access this report.
-        </p>
-
-        <form id="passwordForm">
-            <input
-                id="passwordInput"
-                type="password"
-                placeholder="Enter access password"
-                autocomplete="current-password"
-                required
-            >
-
-            <button class="btn btn-back" type="submit">
-                Unlock Report
-            </button>
-        </form>
-
-        <p class="password-error" id="passwordError"></p>
-    </div>
-</div>
-
-<!-- REPORT PAGE -->
+<!-- HEADER -->
 <header class="header">
     <div class="header-content">
 
@@ -446,7 +346,8 @@ body {
     </div>
 </header>
 
-<main class="container" id="protectedContent" hidden>
+<!-- MAIN REPORT PAGE -->
+<main class="container">
 
     <section class="page-title">
         <h2>Technical Report Dashboard</h2>
@@ -455,6 +356,7 @@ body {
         </p>
     </section>
 
+    <!-- ACTION BUTTONS -->
     <div class="actions no-print">
 
         <a class="btn btn-back"
@@ -472,6 +374,7 @@ body {
 
     </div>
 
+    <!-- INFORMATION CARD -->
     <section class="info-card">
         <div class="info-icon">📊</div>
 
@@ -479,12 +382,13 @@ body {
             <h3>Technical Records</h3>
             <p>
                 View the latest information available in the published
-                Google Sheet. Use the spreadsheet controls to review its
-                rows and columns.
+                Google Sheet. Use the spreadsheet controls to review
+                the available rows and columns.
             </p>
         </div>
     </section>
 
+    <!-- GOOGLE SHEET -->
     <section class="sheet-card">
 
         <div class="sheet-heading">
@@ -505,11 +409,21 @@ body {
 
 </main>
 
+<!-- FOOTER -->
 <footer class="footer">
     MELBA Technical Department | Reliable Maintenance Records
 </footer>
 
+<script>
+function refreshSheet() {
+    const frame = document.getElementById("sheetFrame");
 
+    const sheetURL =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vTrhJvN7IdtRcSa6up1MRzgUVeM_RKUPvq8XIxsZPxO3M0TMH9CQ55fcEYMgS4WTno64TcA1VIw35gK/pubhtml?gid=0&single=true&widget=true&headers=false";
+
+    frame.src = sheetURL + "&refresh=" + Date.now();
+}
+</script>
 
 </body>
 </html>
