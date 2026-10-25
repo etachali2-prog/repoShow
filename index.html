@@ -1,1 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>MELBA Technical Department Reports</title>
+
+<style>
+:root {
+  --navy: #102d4f;
+  --blue: #1769aa;
+  --gold: #f2b84b;
+  --bg: #eef3f8;
+  --green: #18864b;
+  --text: #253247;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  background: var(--navy);
+  color: white;
+  padding: 24px 16px;
+  border-bottom: 4px solid var(--gold);
+}
+
+.header-inner {
+  max-width: 1500px;
+  margin: auto;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+}
+
+header p { margin: 0; color: #dbe7f4; }
+
+.back-link {
+  display: inline-block;
+  margin-top: 15px;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+main {
+  max-width: 1500px;
+  margin: auto;
+  padding: 20px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+input, select, button {
+  padding: 11px;
+  font: inherit;
+  border-radius: 7px;
+}
+
+input, select {
+  border: 1px solid #ccd5e0;
+  background: white;
+}
+
+#search {
+  flex: 1;
+  min-width: 220px;
+}
+
+button {
+  border: none;
+  background: var(--blue);
+  color: white;
+  cursor: pointer;
+}
+
+button:hover { opacity: .88; }
+button:disabled { opacity: .55; cursor: wait; }
+
+.secondary { background: var(--navy); }
+
+#message {
+  margin: 10px 0 16px;
+  overflow-wrap: anywhere;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #142d4b12;
+}
+
+.card span {
+  display: block;
+  color: #66758a;
+  font-size: 13px;
+  margin-bottom: 9px;
+}
+
+.card strong { font-size: 27px; }
+
+.panel {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #142d4b12;
+  margin-bottom: 20px;
+}
+
+.panel h2 {
+  color: var(--navy);
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 1050px;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e3e9f0;
+  font-size: 13px;
+}
+
+th {
+  background: #eaf1f8;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+tbody tr:hover { background: #f8fbff; }
+
+.status {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  background: #e5e7eb;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.status.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.in-progress {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.view-btn {
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
+#details { display: none; }
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.detail-item {
+  padding: 12px;
+  background: #f5f8fc;
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+}
+
+.detail-item b {
+  display: block;
+  color: var(--navy);
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #66758a;
+  font-size: 13px;
+}
+
+@media(max-width: 700px) {
+  main { padding: 12px; }
+  header h1 { font-size: 21px; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .detail-grid { grid-template-columns: 1fr; }
+}
+
+@media print {
+  body { background: white; }
+  header { background: white; color: black; border-bottom: 2px solid black; }
+  header p { color: black; }
+  .toolbar, footer, .back-link, #message, #details button {
+    display: none !important;
+  }
+  main { padding: 0; }
+  .cards { grid-template-columns: repeat(4, 1fr); }
+  .panel, .card { box-shadow: none; }
+  .table-wrap { overflow: visible; }
+  table { min-width: 0; }
+  th, td { padding: 5px; font-size: 9px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <h1>MELBA Technical Department</h1>
+    <p>Maintenance Reports and Work Order Dashboard</p>
+    <a class="back-link"
+       href="https://etachali2-prog.github.io/all/">
+       ← Back to Main Page
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <div class="toolbar">
+    <input
+      type="search"
+      id="search"
+      placeholder="Search machine, department, requester or technician..."
+      aria-label="Search reports">
+
+    <select id="statusFilter" aria-label="Filter by status">
+      <option value="">All Statuses</option>
+      <option value="completed">Completed</option>
+      <option value="in progress">In Progress</option>
+      <option value="pending">Pending</option>
+    </select>
+
+    <button id="refreshBtn" type="button">Refresh Data</button>
+    <button class="secondary" type="button" id="printBtn">Print Reports</button>
+  </div>
+
+  <div id="message" role="status">
+    Connecting to Google Sheets...
+  </div>
+
+  <section class="cards">
+    <div class="card">
+      <span>Total Reports</span>
+      <strong id="totalCount">0</strong>
+    </div>
+
+    <div class="card">
+      <span>Completed</span>
+      <strong id="completedCount">0</strong>
+    </div>
+
+    <div class="card">
+      <span>In Progress</span>
+      <strong id="progressCount">0</strong>
+    </div>
+
+    <div class="card">
+      <span>Pending</span>
+      <strong id="pendingCount">0</strong>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Maintenance Report Records</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Department</th>
+            <th>Machine Name</th>
+            <th>Requested By</th>
+            <th>Maintenance Type</th>
+            <th>Priority</th>
+            <th>Assigned Technician</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody id="reportBody">
+          <tr>
+            <td colspan="9">Loading records...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="details">
+    <h2>Complete Maintenance Report</h2>
+
+    <div id="detailContent" class="detail-grid"></div>
+
+    <br>
+
+    <button type="button" id="closeDetails">Close Details</button>
+    <button type="button" class="secondary" id="printDetail">
+      Print This Report
+    </button>
+  </section>
+
+</main>
+
+<footer>
+  MELBA PRINTING PUBLISHING & PACKAGING S.C.
+</footer>
+
+<script>
+/*
+  IMPORTANT:
+  Replace the URL below with your deployed Google Apps Script /exec URL.
+*/
+const API_URL =
+  "<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTrhJvN7IdtRcSa6up1MRzgUVeM_RKUPvq8XIxsZPxO3M0TMH9CQ55fcEYMgS4WTno64TcA1VIw35gK/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>";
+
+let allReports = [];
+
+const message = document.getElementById("message");
+const reportBody = document.getElementById("reportBody");
+
+function normalize(value) {
+  return String(value ?? "").trim().toLowerCase();
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, character => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[character]);
+}
+
+/*
+  Finds a column without depending on uppercase/lowercase.
+*/
+function getValue(record, ...names) {
+  for (const name of names) {
+    const key = Object.keys(record).find(
+      column => normalize(column) === normalize(name)
+    );
+
+    if (key !== undefined) {
+      return record[key] ?? "";
+    }
+  }
+
+  return "";
+}
+
+/*
+  Read records returned by the Apps Script doGet() function.
+*/
+async function loadReports() {
+  const refreshBtn = document.getElementById("refreshBtn");
+
+  if (API_URL.includes("PASTE_YOUR_")) {
+    message.textContent =
+      "Setup required: Paste your deployed Apps Script URL into API_URL.";
+    return;
+  }
+
+  refreshBtn.disabled = true;
+  message.textContent = "Loading maintenance reports...";
+
+  try {
+    const separator = API_URL.includes("?") ? "&" : "?";
+
+    const response = await fetch(
+      API_URL + separator + "action=list"
+    );
+
+    if (!response.ok) {
+      throw new Error("Server returned HTTP " + response.status);
+    }
+
+    const data = await response.json();
+
+    if (data.success !== true) {
+      throw new Error(data.message || "Google Sheets returned an error.");
+    }
+
+    if (!Array.isArray(data.records)) {
+      throw new Error("The response does not contain a records array.");
+    }
+
+    allReports = data.records;
+
+    updateSummary();
+    renderReports();
+
+    message.textContent =
+      "Successfully loaded " + allReports.length +
+      " maintenance report(s).";
+
+  } catch (error) {
+    console.error("Report loading error:", error);
+
+    message.textContent =
+      "Unable to load reports. Check the Apps Script URL, deployment, " +
+      "sheet name and returned JSON. Details: " + error.message;
+
+    reportBody.innerHTML =
+      '<tr><td colspan="9">Could not load records. Check the connection.</td></tr>';
+
+  } finally {
+    refreshBtn.disabled = false;
+  }
+}
+
+/*
+  Calculate dashboard totals.
+*/
+function updateSummary() {
+  document.getElementById("totalCount").textContent =
+    allReports.length;
+
+  document.getElementById("completedCount").textContent =
+    allReports.filter(record =>
+      normalize(getValue(record, "MaintenanceStatus")) === "completed"
+    ).length;
+
+  document.getElementById("progressCount").textContent =
+    allReports.filter(record =>
+      normalize(getValue(record, "MaintenanceStatus")) === "in progress"
+    ).length;
+
+  document.getElementById("pendingCount").textContent =
+    allReports.filter(record =>
+      normalize(getValue(record, "MaintenanceStatus")) === "pending"
+    ).length;
+}
+
+/*
+  Display and filter the table.
+*/
+function renderReports() {
+  const searchText = normalize(
+    document.getElementById("search").value
+  );
+
+  const selectedStatus = normalize(
+    document.getElementById("statusFilter").value
+  );
+
+  const filtered = allReports
+    .map((record, index) => ({ record, index }))
+    .filter(({ record }) => {
+      const matchesSearch = Object.entries(record).some(
+        ([key, value]) =>
+          (String(key) + " " + String(value ?? ""))
+            .toLowerCase()
+            .includes(searchText)
+      );
+
+      const recordStatus = normalize(
+        getValue(record, "MaintenanceStatus")
+      );
+
+      const matchesStatus =
+        !selectedStatus || recordStatus === selectedStatus;
+
+      return matchesSearch && matchesStatus;
+    });
+
+  if (!filtered.length) {
+    reportBody.innerHTML =
+      '<tr><td colspan="9">No matching maintenance reports found.</td></tr>';
+    return;
+  }
+
+  reportBody.innerHTML = filtered.map(({ record, index }) => {
+    const status = getValue(record, "MaintenanceStatus");
+    const statusClass = normalize(status).replace(/\s+/g, "-");
+
+    return `
+      <tr>
+        <td>${escapeHTML(getValue(record, "Date"))}</td>
+        <td>${escapeHTML(getValue(record, "Department"))}</td>
+        <td>${escapeHTML(getValue(record, "MachineName"))}</td>
+        <td>${escapeHTML(getValue(record, "RequestedBy"))}</td>
+        <td>${escapeHTML(getValue(record, "MaintenanceType"))}</td>
+        <td>${escapeHTML(getValue(record, "PriorityLevel"))}</td>
+        <td>${escapeHTML(getValue(record, "AssignedTechnician"))}</td>
+        <td>
+          <span class="status ${escapeHTML(statusClass)}">
+            ${escapeHTML(status || "Not specified")}
+          </span>
+        </td>
+        <td>
+          <button type="button"
+            class="view-btn"
+            data-index="${index}">
+            View Details
+          </button>
+        </td>
+      </tr>`;
+  }).join("");
+
+  reportBody.querySelectorAll("[data-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      showDetails(allReports[Number(button.dataset.index)]);
+    });
+  });
+}
+
+/*
+  Show every column from the selected report.
+*/
+function showDetails(record) {
+  const container = document.getElementById("detailContent");
+
+  container.innerHTML = Object.entries(record).map(([key, value]) => `
+    <div class="detail-item">
+      <b>${escapeHTML(key)}</b>
+      <span>${escapeHTML(value)}</span>
+    </div>
+  `).join("");
+
+  document.getElementById("details").style.display = "block";
+
+  document.getElementById("details").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+/*
+  Buttons and search events.
+*/
+document.getElementById("refreshBtn")
+  .addEventListener("click", loadReports);
+
+document.getElementById("search")
+  .addEventListener("input", renderReports);
+
+document.getElementById("statusFilter")
+  .addEventListener("change", renderReports);
+
+document.getElementById("printBtn")
+  .addEventListener("click", () => window.print());
+
+document.getElementById("closeDetails")
+  .addEventListener("click", () => {
+    document.getElementById("details").style.display = "none";
+  });
+
+document.getElementById("printDetail")
+  .addEventListener("click", () => window.print());
+
+loadReports();
+</script>
+
+</body>
+</html>
