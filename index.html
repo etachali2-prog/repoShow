@@ -1,595 +1,417 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="om">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MELBA | Technical Report</title>
+<title>MELBA | Daily Kaizen Checklist</title>
 
 <style>
 :root {
   --navy: #142b4a;
   --blue: #1d4e89;
   --gold: #d6a746;
-  --background: #f1f5f9;
+  --bg: #f1f5f9;
   --border: #dce3ed;
   --text: #243247;
 }
-
 * { box-sizing: border-box; }
-
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: var(--background);
+  background: var(--bg);
   color: var(--text);
 }
-
-.header {
-  background: linear-gradient(135deg, #142b4a, #234c78);
+header {
+  background: linear-gradient(135deg, var(--navy), var(--blue));
   color: white;
-  padding: 22px 20px;
+  padding: 22px;
   border-bottom: 5px solid var(--gold);
 }
-
-.header-content {
-  max-width: 1500px;
+.header-inner {
+  max-width: 1200px;
   margin: auto;
-  display: flex;
-  align-items: center;
+}
+header h1 { font-size: 22px; margin: 0 0 8px; }
+header p { margin: 0; font-size: 13px; color: #e1eaf5; }
+main { max-width: 1200px; margin: 24px auto; padding: 0 15px; }
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 18px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(20,43,74,.05);
+}
+h2, h3 { color: var(--navy); }
+h2 { font-size: 23px; margin-top: 0; }
+h3 { font-size: 17px; margin-top: 0; }
+label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 7px; }
+input, select, textarea {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: white;
+  font: inherit;
+  font-size: 14px;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #a9c9ed;
+  border-color: var(--blue);
+}
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 15px;
 }
-
-.logo {
-  width: 54px;
-  height: 54px;
-  border: 2px solid var(--gold);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  font-weight: bold;
-  color: var(--gold);
-  flex-shrink: 0;
-}
-
-.brand h1 {
-  margin: 0 0 7px;
-  font-size: clamp(16px, 2.2vw, 23px);
-}
-
-.brand p {
-  margin: 0;
-  color: #dbe5f1;
-  font-size: 13px;
-}
-
-.container {
-  max-width: 1500px;
-  margin: 24px auto;
-  padding: 0 18px;
-}
-
-.page-title { margin-bottom: 18px; }
-
-.page-title h2 {
-  color: var(--navy);
-  font-size: 25px;
-  margin: 0 0 7px;
-}
-
-.page-title p {
-  color: #64748b;
-  margin: 0;
-  line-height: 1.5;
-}
-
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 18px;
+  margin: 16px 0;
 }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+button, .back-link {
   border: 0;
-  border-radius: 8px;
-  padding: 11px 16px;
-  font-size: 14px;
+  border-radius: 7px;
+  padding: 12px 17px;
   font-weight: bold;
-  text-decoration: none;
+  font-size: 14px;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
-
-.btn-back { background: var(--navy); color: white; }
-.btn-print { background: var(--gold); color: #182536; }
-.btn-refresh {
-  background: white;
-  color: var(--navy);
-  border: 1px solid var(--border);
-}
-
-.info-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 15px 18px;
-  margin-bottom: 18px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-
-.info-icon { font-size: 23px; }
-
-.info-card h3 {
-  margin: 0 0 5px;
-  color: var(--navy);
-  font-size: 15px;
-}
-
-.info-card p {
-  margin: 0;
-  color: #64748b;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.table-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 5px 18px rgba(20,43,74,.06);
-}
-
-.table-heading {
-  padding: 16px 18px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.table-heading h3 {
-  margin: 0;
-  color: var(--navy);
-  font-size: 17px;
-}
-
-.status { font-size: 12px; color: #64748b; }
-
-.table-tools {
-  padding: 13px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  border-bottom: 1px solid var(--border);
-}
-
-.table-tools input {
-  flex: 1;
-  min-width: 220px;
-  max-width: 480px;
-  padding: 11px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.table-tools .count {
-  font-size: 12px;
-  color: #64748b;
-}
-
-.table-wrap {
-  width: 100%;
-  overflow: auto;
-  max-height: 70vh;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: auto;
-  font-size: 12px;
-}
-
-thead {
-  background: #eaf0f8;
-  color: var(--navy);
-}
-
-th, td {
-  border: 1px solid #dce3ed;
-  padding: 9px 10px;
-  text-align: left;
-  vertical-align: top;
-  overflow-wrap: anywhere;
-  white-space: normal;
-}
-
-th {
-  font-weight: bold;
-  line-height: 1.35;
-  min-width: 90px;
-}
-
+.primary { background: var(--navy); color: white; }
+.gold { background: var(--gold); color: #182536; }
+.secondary { background: white; border: 1px solid var(--border); color: var(--navy); }
+button:disabled { opacity: .6; cursor: wait; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 780px; font-size: 13px; }
+th, td { border: 1px solid var(--border); padding: 10px; text-align: left; vertical-align: top; }
+th { background: #eaf0f8; color: var(--navy); }
 tbody tr:nth-child(even) { background: #f8fafc; }
-tbody tr:hover { background: #eef4fb; }
-
-.empty {
-  padding: 28px;
-  text-align: center;
-  color: #64748b;
+td select, td input { min-width: 100px; }
+.activity-number { text-align: center; font-weight: bold; width: 55px; }
+#status {
+  display: none;
+  padding: 13px;
+  border-radius: 8px;
+  margin: 15px 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
-
-.footer {
-  text-align: center;
-  padding: 24px 12px;
-  color: #64748b;
-  font-size: 12px;
+#status.show { display: block; }
+#status.info { background: #eaf2ff; color: #173e70; }
+#status.success { background: #e7f7ec; color: #166534; }
+#status.error { background: #fdecec; color: #991b1b; }
+.small { font-size: 12px; color: #64748b; line-height: 1.5; }
+footer { text-align: center; color: #64748b; font-size: 12px; padding: 20px; }
+@media(max-width:700px) {
+  header { padding: 18px 14px; }
+  header h1 { font-size: 17px; line-height: 1.5; }
+  main { padding: 0 9px; margin: 15px auto; }
+  .card { padding: 14px; }
+  .field-grid { grid-template-columns: 1fr; }
+  .actions button, .actions a { flex: 1; text-align: center; }
 }
-
-@media (max-width: 600px) {
-  .header { padding: 18px 13px; }
-  .logo { width: 45px; height: 45px; font-size: 22px; }
-  .brand h1 { font-size: 16px; line-height: 1.35; }
-  .brand p { font-size: 11px; }
-  .container { padding: 0 10px; margin: 16px auto; }
-  .page-title h2 { font-size: 21px; }
-  .actions .btn { flex: 1; }
-  .table-tools input { max-width: none; min-width: 100%; }
-  .table-wrap { max-height: 65vh; }
-}
-
-/* A4 LANDSCAPE PRINT */
-@page {
-  size: A4 landscape;
-  margin: 6mm;
-}
-
 @media print {
-  body {
-    background: white !important;
-    color: black !important;
-    margin: 0 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  .no-print, .footer, .info-card {
-    display: none !important;
-  }
-
-  .header {
-    background: white !important;
-    color: black !important;
-    padding: 3mm 0;
-    border-bottom: 1.5pt solid #b18a32;
-  }
-
-  .header-content { max-width: none; }
-
-  .logo {
-    color: black;
-    border-color: #b18a32;
-    width: 12mm;
-    height: 12mm;
-    font-size: 16pt;
-    border-radius: 2mm;
-  }
-
-  .brand h1 {
-    color: black !important;
-    font-size: 13pt;
-    margin-bottom: 2mm;
-  }
-
-  .brand p {
-    color: #333 !important;
-    font-size: 8pt;
-  }
-
-  .container {
-    max-width: none;
-    width: 100%;
-    margin: 3mm 0 0;
-    padding: 0;
-  }
-
-  .page-title { margin: 0 0 3mm; }
-
-  .page-title h2 {
-    font-size: 12pt;
-    margin: 0 0 1mm;
-  }
-
-  .page-title p { font-size: 8pt; }
-
-  .table-card {
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-    overflow: visible;
-  }
-
-  .table-heading {
-    padding: 2mm 0;
-    border-bottom: 1px solid #999;
-  }
-
-  .table-heading h3 { font-size: 10pt; }
-  .status { font-size: 7pt; }
-  .table-tools { display: none !important; }
-
-  .table-wrap {
-    overflow: visible !important;
-    max-height: none !important;
-    width: 100% !important;
-  }
-
-  table {
-    width: 100% !important;
-    table-layout: fixed !important;
-    border-collapse: collapse !important;
-    font-size: 6.5pt !important;
-  }
-
-  thead { display: table-header-group; }
-
-  tr {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  th, td {
-    min-width: 0 !important;
-    padding: 1.2mm .8mm !important;
-    font-size: 6.5pt !important;
-    line-height: 1.15 !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-    word-break: break-word !important;
-    border: .4pt solid #888 !important;
-  }
-
-  th {
-    background: #eaf0f8 !important;
-    color: black !important;
-    font-weight: bold;
-  }
-
-  tbody tr:nth-child(even) {
-    background: #f7f7f7 !important;
-  }
-
-  .empty { padding: 5mm; font-size: 9pt; }
+  @page { size: A4 landscape; margin: 8mm; }
+  body { background: white; }
+  header { background: white; color: black; border-bottom: 2px solid #b18a32; padding: 8px 0; }
+  header p { color: black; }
+  main { max-width: none; margin: 10px 0; padding: 0; }
+  .no-print, #status { display: none !important; }
+  .card { box-shadow: none; padding: 8px; border: 0; }
+  table { min-width: 0; font-size: 8pt; }
+  th, td { padding: 4px; }
+  input, select, textarea { border: 0; padding: 2px; appearance: none; font-size: 8pt; }
+  tr { break-inside: avoid; }
+  footer { display: none; }
 }
 </style>
 </head>
 
 <body>
-
-<header class="header">
-  <div class="header-content">
-    <div class="logo">M</div>
-    <div class="brand">
-      <h1>MELBA PRINTING, PUBLISHING &amp; PACKAGING S.C.</h1>
-      <p>Technical Department | Maintenance Management</p>
-    </div>
+<header>
+  <div class="header-inner">
+    <h1>MELBA PRINTING, PUBLISHING &amp; PACKAGING S.C.</h1>
+    <p>Technical Department | Daily Kaizen Checklist</p>
   </div>
 </header>
 
-<main class="container">
-  <section class="page-title">
-    <h2>Technical Report Dashboard</h2>
-   
-  </section>
+<main>
+  <section class="card">
+    <h2>Cheekliistii Hojii Irra Oolmaan Kaayizenii Guyyaa Guyyaan Ittiin Hordofamu</h2>
+    <p class="small">
+      Sirna qulqullinaa, qindoominaa, yeroo, rakkoo fi fooyya'iinsa itti fufiinsa qabu hordofuuf.
+    </p>
 
-  <div class="actions no-print">
-    <a class="btn btn-back" href="https://etachali2-prog.github.io/all/">← Back</a>
-    <button class="btn btn-print" type="button" onclick="window.print()">🖨 Print A4 Landscape</button>
-    <button class="btn btn-refresh" type="button" onclick="loadSheet()">↻ Refresh Data</button>
-  </div>
+    <form id="kaizenForm">
+      <div class="field-grid">
+        <div>
+          <label for="date">Guyyaa / Date *</label>
+          <input type="date" id="date" required>
+        </div>
 
- 
+        <div>
+          <label for="department">Kutaa Hojii / Department *</label>
+          <select id="department" required>
+            <option value="">-- Select Department --</option>
+            <option>Technical Department</option>
+            <option>Prepress</option>
+            <option>Printing</option>
+            <option>Finishing</option>
+            <option>Utilities</option>
+            <option>Maintenance Workshop</option>
+            <option>Production</option>
+            <option>Other</option>
+          </select>
+        </div>
 
-  <section class="table-card">
-    <div class="table-heading">
-      <h3>Technical Data Sheet</h3>
-      <span class="status" id="loadStatus" aria-live="polite">Loading records…</span>
-    </div>
+        <div>
+          <label for="signature">Maqaa Guutuu / Submitted By *</label>
+          <input id="signature" type="text" maxlength="100"
+                 placeholder="Enter full name" required>
+        </div>
+      </div>
 
-    <div class="table-tools no-print">
-      <input type="search" id="searchInput" placeholder="Search any column…" aria-label="Search report" oninput="renderTable()">
-      <span class="count" id="recordCount"></span>
-    </div>
+      <div class="actions no-print">
+        <a class="back-link primary"
+           href="https://etachali2-prog.github.io/all/">← Back</a>
+        <button type="button" class="secondary" onclick="window.print()">
+          Print Checklist
+        </button>
+      </div>
 
-    <div class="table-wrap">
-      <table id="reportTable">
-        <thead></thead>
-        <tbody>
-          <tr><td class="empty">Loading…</td></tr>
-        </tbody>
-      </table>
-    </div>
+      <div id="status" role="status" aria-live="polite"></div>
+
+      <h3>Hojiiwwan Hordofaman / Activities</h3>
+      <p class="small">
+        Each activity requires a Yes/No response and a score from 0 to 5.
+        Edit the sample activities in the JavaScript if your official checklist differs.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Lakk.</th>
+              <th>Hojiiwwan Hordofaman / Activities</th>
+              <th>Eeyyee / Lakki</th>
+              <th>Qabxii (0–5)</th>
+              <th>Yaada / Comment</th>
+            </tr>
+          </thead>
+          <tbody id="activityRows"></tbody>
+        </table>
+      </div>
+
+      <div class="actions no-print">
+        <button type="submit" id="submitBtn" class="gold">
+          Submit Checklist to Google Sheets
+        </button>
+        <button type="reset" class="secondary">Clear Form</button>
+      </div>
+
+      <p class="small">
+        Note: This form sends your submission to Google Apps Script.
+        The submission message cannot independently confirm that Google Sheets
+        saved the records. Verify the new rows in the Kaizen Records tab.
+      </p>
+    </form>
   </section>
 </main>
 
-<footer class="footer">MELBA Technical Department | Reliable Maintenance Records</footer>
+<footer>MELBA Technical Department | Daily Kaizen Records</footer>
 
 <script>
 /*
-  Published CSV source.
-  Change CSV_URL if this report uses another Google Sheet.
+  STEP 1:
+  Replace the URL below with your deployed Apps Script URL ending in /exec.
 */
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTrhJvN7IdtRcSa6up1MRzgUVeM_RKUPvq8XIxsZPxO3M0TMH9CQ55fcEYMgS4WTno64TcA1VIw35gK/pub?gid=0&single=true&output=csv";
+const SCRIPT_URL = "PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE";
 
-let headers = [];
-let records = [];
+/*
+  STEP 2:
+  These are sample activities. Replace them with the exact 20 activities
+  in your official MELBA Daily Kaizen Checklist if they differ.
+*/
+const activities = [
+  "Workplace cleanliness is maintained.",
+  "Tools and equipment are arranged properly.",
+  "Materials are stored in designated locations.",
+  "Unnecessary items are removed from the workplace.",
+  "Walkways and working areas are kept clear.",
+  "Waste and scrap are collected properly.",
+  "Machines are cleaned according to requirements.",
+  "Safety guards and protective devices are checked.",
+  "Required personal protective equipment is used.",
+  "Electrical cables and connections are kept orderly.",
+  "Oil and other leaks are reported.",
+  "Abnormal machine conditions are reported promptly.",
+  "Preventive maintenance activities are followed.",
+  "Tools are returned after use.",
+  "Work instructions and procedures are followed.",
+  "Work is organized to reduce unnecessary movement.",
+  "Time is used effectively.",
+  "Identified problems are recorded and addressed.",
+  "Improvement ideas are communicated to the team.",
+  "Previous Kaizen actions are followed up."
+];
 
-function parseCSV(text) {
-  const rows = [];
-  let row = [];
-  let cell = "";
-  let quoted = false;
+const tbody = document.getElementById("activityRows");
+const form = document.getElementById("kaizenForm");
+const submitBtn = document.getElementById("submitBtn");
+const statusBox = document.getElementById("status");
 
-  text = text.replace(/^\uFEFF/, "");
-
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-
-    if (ch === '"') {
-      if (quoted && text[i + 1] === '"') {
-        cell += '"';
-        i++;
-      } else {
-        quoted = !quoted;
-      }
-    } else if (ch === "," && !quoted) {
-      row.push(cell);
-      cell = "";
-    } else if ((ch === "\n" || ch === "\r") && !quoted) {
-      if (ch === "\r" && text[i + 1] === "\n") i++;
-      row.push(cell);
-
-      if (row.some(value => value.trim() !== "")) {
-        rows.push(row);
-      }
-
-      row = [];
-      cell = "";
-    } else {
-      cell += ch;
-    }
-  }
-
-  if (cell.length || row.length) {
-    row.push(cell);
-    if (row.some(value => value.trim() !== "")) {
-      rows.push(row);
-    }
-  }
-
-  return rows;
+function showStatus(message, type) {
+  statusBox.textContent = message;
+  statusBox.className = "show " + type;
 }
 
-async function loadSheet() {
-  const status = document.getElementById("loadStatus");
-  status.textContent = "Loading records…";
+function buildActivities() {
+  tbody.replaceChildren();
+
+  activities.forEach((activity, index) => {
+    const tr = document.createElement("tr");
+
+    const numberCell = document.createElement("td");
+    numberCell.className = "activity-number";
+    numberCell.textContent = index + 1;
+
+    const activityCell = document.createElement("td");
+    activityCell.textContent = activity;
+
+    const responseCell = document.createElement("td");
+    const response = document.createElement("select");
+    response.required = true;
+    response.setAttribute("aria-label", "Response for activity " + (index + 1));
+    response.innerHTML =
+      '<option value="">Choose</option>' +
+      '<option value="Yes">Eeyyee / Yes</option>' +
+      '<option value="No">Lakki / No</option>';
+    responseCell.appendChild(response);
+
+    const scoreCell = document.createElement("td");
+    const score = document.createElement("select");
+    score.required = true;
+    score.setAttribute("aria-label", "Score for activity " + (index + 1));
+    score.innerHTML =
+      '<option value="">Score</option>' +
+      [0, 1, 2, 3, 4, 5]
+        .map(n => '<option value="' + n + '">' + n + '</option>')
+        .join("");
+    scoreCell.appendChild(score);
+
+    const commentCell = document.createElement("td");
+    const comment = document.createElement("input");
+    comment.type = "text";
+    comment.maxLength = 500;
+    comment.placeholder = "Optional comment";
+    comment.setAttribute("aria-label", "Comment for activity " + (index + 1));
+    commentCell.appendChild(comment);
+
+    tr.append(numberCell, activityCell, responseCell, scoreCell, commentCell);
+    tbody.appendChild(tr);
+  });
+}
+
+function getPayload() {
+  const rows = Array.from(tbody.querySelectorAll("tr"));
+
+  return {
+    date: document.getElementById("date").value,
+    department: document.getElementById("department").value,
+    signature: document.getElementById("signature").value.trim(),
+    items: rows.map((tr, index) => ({
+      activity: activities[index],
+      response: tr.cells[2].querySelector("select").value,
+      score: tr.cells[3].querySelector("select").value,
+      comment: tr.cells[4].querySelector("input").value.trim()
+    }))
+  };
+}
+
+form.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  if (SCRIPT_URL === "PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE" ||
+      !SCRIPT_URL.startsWith("https://script.google.com/")) {
+    showStatus(
+      "Setup required: paste your deployed Google Apps Script /exec URL into SCRIPT_URL.",
+      "error"
+    );
+    return;
+  }
+
+  if (!form.reportValidity()) return;
+
+  const payload = getPayload();
+
+  if (payload.items.length !== 20 ||
+      payload.items.some(item =>
+        !["Yes", "No"].includes(item.response) ||
+        item.score === ""
+      )) {
+    showStatus(
+      "Please select Yes/No and a score from 0 to 5 for all 20 activities.",
+      "error"
+    );
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Sending checklist...";
+  showStatus("Sending your checklist to Google Sheets. Please wait...", "info");
 
   try {
-    const response = await fetch(
-      CSV_URL + "&_=" + Date.now(),
-      { cache: "no-store" }
-    );
+    const body = new URLSearchParams();
+    body.set("payload", JSON.stringify(payload));
 
-    if (!response.ok) {
-      throw new Error("HTTP " + response.status);
-    }
-
-    const csvText = await response.text();
-    const rows = parseCSV(csvText);
-
-    if (!rows.length || !rows[0].length) {
-      throw new Error("No rows found. Check the published sheet.");
-    }
-
-    headers = rows[0].map(
-      (header, index) => header.trim() || ("Column " + (index + 1))
-    );
-
-    records = rows.slice(1)
-      .map(row => headers.map((_, index) => (row[index] ?? "").trim()))
-      .filter(row => row.some(value => value !== ""));
-
-    renderTable();
-    status.textContent = "Updated " + new Date().toLocaleTimeString();
-
-  } catch (error) {
-    status.textContent = "Could not load sheet data";
-
-    document.querySelector("#reportTable thead").innerHTML = "";
-    document.querySelector("#reportTable tbody").innerHTML = "";
-
-    const tr = document.createElement("tr");
-    const td = document.createElement("td");
-    td.className = "empty";
-    td.textContent =
-      "Unable to load the published Google Sheet. Check that the CSV link is published and publicly viewable, then click Refresh Data.";
-    tr.appendChild(td);
-    document.querySelector("#reportTable tbody").appendChild(tr);
-
-    document.getElementById("recordCount").textContent = "";
-    console.error(error);
-  }
-}
-
-function renderTable() {
-  const tableHead = document.querySelector("#reportTable thead");
-  const tableBody = document.querySelector("#reportTable tbody");
-  const query = document.getElementById("searchInput").value.trim().toLowerCase();
-
-  if (!headers.length) return;
-
-  tableHead.innerHTML = "";
-  const headRow = document.createElement("tr");
-
-  headers.forEach(header => {
-    const th = document.createElement("th");
-    th.textContent = header;
-    headRow.appendChild(th);
-  });
-
-  tableHead.appendChild(headRow);
-
-  const filtered = records.filter(row =>
-    !query || row.some(value => value.toLowerCase().includes(query))
-  );
-
-  tableBody.innerHTML = "";
-
-  if (!filtered.length) {
-    const tr = document.createElement("tr");
-    const td = document.createElement("td");
-    td.className = "empty";
-    td.colSpan = headers.length;
-    td.textContent = "No matching records found.";
-    tr.appendChild(td);
-    tableBody.appendChild(tr);
-  } else {
-    const fragment = document.createDocumentFragment();
-
-    filtered.forEach(row => {
-      const tr = document.createElement("tr");
-
-      headers.forEach((_, index) => {
-        const td = document.createElement("td");
-        td.textContent = row[index] || "";
-        tr.appendChild(td);
-      });
-
-      fragment.appendChild(tr);
+    /*
+      no-cors allows this cross-origin form submission without a preflight.
+      Its response is opaque, so JavaScript cannot verify the server result.
+    */
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: body
     });
 
-    tableBody.appendChild(fragment);
+    showStatus(
+      "The submission request was sent. Please open your Google Sheet and " +
+      "check the Kaizen Records tab to confirm that 20 new rows were saved. " +
+      "If no rows appear, verify the Spreadsheet ID, deployment permissions, " +
+      "web app URL and Apps Script execution log before retrying.",
+      "info"
+    );
+
+  } catch (error) {
+    console.error(error);
+    showStatus(
+      "Could not send the request. Check your internet connection and " +
+      "deployed Apps Script URL, then try again.",
+      "error"
+    );
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit Checklist to Google Sheets";
   }
+});
 
-  document.getElementById("recordCount").textContent =
-    filtered.length + " of " + records.length + " records";
-}
+form.addEventListener("reset", function() {
+  setTimeout(() => {
+    document.getElementById("date").value =
+      new Date().toLocaleDateString("en-CA");
+    statusBox.className = "";
+    statusBox.textContent = "";
+  }, 0);
+});
 
-loadSheet();
-setInterval(loadSheet, 60000);
+document.getElementById("date").value =
+  new Date().toLocaleDateString("en-CA");
+
+buildActivities();
 </script>
-
 </body>
 </html>
