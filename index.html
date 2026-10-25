@@ -1,592 +1,472 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>MELBA | Technical Report</title>
 
 <style>
 :root {
-  --navy: #142b4a;
-  --blue: #1d4e89;
-  --gold: #d6a746;
-  --background: #f1f5f9;
-  --border: #dce3ed;
-  --text: #243247;
+    --navy: #142b4a;
+    --blue: #1d4e89;
+    --gold: #d6a746;
+    --background: #f1f5f9;
+    --border: #dce3ed;
+    --text: #243247;
 }
 
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--background);
-  color: var(--text);
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
 }
 
+/* HEADER */
 .header {
-  background: linear-gradient(135deg, #142b4a, #234c78);
-  color: white;
-  padding: 22px 20px;
-  border-bottom: 5px solid var(--gold);
+    background: linear-gradient(135deg, #142b4a, #234c78);
+    color: white;
+    padding: 25px 20px;
+    border-bottom: 5px solid var(--gold);
 }
 
 .header-content {
-  max-width: 1500px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  gap: 15px;
+    max-width: 1400px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .logo {
-  width: 54px;
-  height: 54px;
-  border: 2px solid var(--gold);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  font-weight: bold;
-  color: var(--gold);
-  flex-shrink: 0;
+    width: 58px;
+    height: 58px;
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    font-weight: bold;
+    color: var(--gold);
+    flex-shrink: 0;
 }
 
 .brand h1 {
-  margin: 0 0 7px;
-  font-size: clamp(16px, 2.2vw, 23px);
+    margin: 0 0 8px;
+    font-size: 23px;
 }
 
 .brand p {
-  margin: 0;
-  color: #dbe5f1;
-  font-size: 13px;
+    margin: 0;
+    color: #dbe5f1;
+    font-size: 14px;
 }
 
+/* MAIN CONTENT */
 .container {
-  max-width: 1500px;
-  margin: 24px auto;
-  padding: 0 18px;
+    max-width: 1400px;
+    margin: 25px auto;
+    padding: 0 20px;
 }
 
-.page-title { margin-bottom: 18px; }
+.page-title {
+    margin-bottom: 20px;
+}
 
 .page-title h2 {
-  color: var(--navy);
-  font-size: 25px;
-  margin: 0 0 7px;
+    color: var(--navy);
+    font-size: 25px;
+    margin: 0 0 8px;
 }
 
 .page-title p {
-  color: #64748b;
-  margin: 0;
-  line-height: 1.5;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
 }
 
+/* BUTTONS */
 .actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  border-radius: 8px;
-  padding: 11px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  text-decoration: none;
-  cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.btn-back { background: var(--navy); color: white; }
-.btn-print { background: var(--gold); color: #182536; }
+.btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.08);
+}
+
+.btn-back {
+    background: var(--navy);
+    color: white;
+}
+
+.btn-print {
+    background: var(--gold);
+    color: #182536;
+}
+
 .btn-refresh {
-  background: white;
-  color: var(--navy);
-  border: 1px solid var(--border);
+    background: white;
+    color: var(--navy);
+    border: 1px solid var(--border);
 }
 
+/* INFORMATION CARD */
 .info-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 15px 18px;
-  margin-bottom: 18px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 3px 12px rgba(20, 43, 74, 0.04);
 }
 
-.info-icon { font-size: 23px; }
+.info-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #e7eef8;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
 
 .info-card h3 {
-  margin: 0 0 5px;
-  color: var(--navy);
-  font-size: 15px;
+    margin: 0 0 5px;
+    color: var(--navy);
+    font-size: 15px;
 }
 
 .info-card p {
-  margin: 0;
-  color: #64748b;
-  font-size: 13px;
-  line-height: 1.5;
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
-.table-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 5px 18px rgba(20,43,74,.06);
+/* SPREADSHEET VIEWER */
+.sheet-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(20, 43, 74, 0.07);
 }
 
-.table-heading {
-  padding: 16px 18px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+.sheet-heading {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 17px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.table-heading h3 {
-  margin: 0;
-  color: var(--navy);
-  font-size: 17px;
+.sheet-heading h3 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 17px;
 }
 
-.status { font-size: 12px; color: #64748b; }
-
-.table-tools {
-  padding: 13px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  border-bottom: 1px solid var(--border);
+.sheet-heading span {
+    color: #64748b;
+    font-size: 12px;
 }
 
-.table-tools input {
-  flex: 1;
-  min-width: 220px;
-  max-width: 480px;
-  padding: 11px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 14px;
+.sheet-viewer {
+    width: 100%;
+    height: 72vh;
+    min-height: 480px;
+    background: #f8fafc;
 }
 
-.table-tools .count {
-  font-size: 12px;
-  color: #64748b;
+.sheet-viewer iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: white;
 }
 
-.table-wrap {
-  width: 100%;
-  overflow: auto;
-  max-height: 70vh;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: auto;
-  font-size: 12px;
-}
-
-thead {
-  background: #eaf0f8;
-  color: var(--navy);
-}
-
-th, td {
-  border: 1px solid #dce3ed;
-  padding: 9px 10px;
-  text-align: left;
-  vertical-align: top;
-  overflow-wrap: anywhere;
-  white-space: normal;
-}
-
-th {
-  font-weight: bold;
-  line-height: 1.35;
-  min-width: 90px;
-}
-
-tbody tr:nth-child(even) { background: #f8fafc; }
-tbody tr:hover { background: #eef4fb; }
-
-.empty {
-  padding: 28px;
-  text-align: center;
-  color: #64748b;
-}
-
+/* FOOTER */
 .footer {
-  text-align: center;
-  padding: 24px 12px;
-  color: #64748b;
-  font-size: 12px;
+    text-align: center;
+    padding: 25px 15px;
+    color: #64748b;
+    font-size: 12px;
 }
 
+/* MOBILE */
 @media (max-width: 600px) {
-  .header { padding: 18px 13px; }
-  .logo { width: 45px; height: 45px; font-size: 22px; }
-  .brand h1 { font-size: 16px; line-height: 1.35; }
-  .brand p { font-size: 11px; }
-  .container { padding: 0 10px; margin: 16px auto; }
-  .page-title h2 { font-size: 21px; }
-  .actions .btn { flex: 1; }
-  .table-tools input { max-width: none; min-width: 100%; }
-  .table-wrap { max-height: 65vh; }
+    .header {
+        padding: 20px 15px;
+    }
+
+    .brand h1 {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+
+    .brand p {
+        font-size: 12px;
+    }
+
+    .logo {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+    }
+
+    .container {
+        padding: 0 12px;
+        margin: 18px auto;
+    }
+
+    .page-title h2 {
+        font-size: 22px;
+    }
+
+    .actions .btn {
+        flex: 1;
+    }
+
+    .sheet-viewer {
+        height: 70vh;
+        min-height: 400px;
+    }
 }
 
 /* A4 LANDSCAPE PRINT */
 @page {
-  size: A4 landscape;
-  margin: 6mm;
+    size: A4 landscape;
+    margin: 8mm;
 }
 
 @media print {
-  body {
-    background: white !important;
-    color: black !important;
-    margin: 0 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+    body {
+        background: white !important;
+        margin: 0;
+        padding: 0;
+        color: black;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
 
-  .no-print, .footer, .info-card {
-    display: none !important;
-  }
+    .no-print,
+    .footer {
+        display: none !important;
+    }
 
-  .header {
-    background: white !important;
-    color: black !important;
-    padding: 3mm 0;
-    border-bottom: 1.5pt solid #b18a32;
-  }
+    .header {
+        background: white !important;
+        color: black !important;
+        padding: 5mm 0;
+        border-bottom: 2px solid #b18a32;
+    }
 
-  .header-content { max-width: none; }
+    .header-content {
+        max-width: none;
+    }
 
-  .logo {
-    color: black;
-    border-color: #b18a32;
-    width: 12mm;
-    height: 12mm;
-    font-size: 16pt;
-    border-radius: 2mm;
-  }
+    .brand h1,
+    .brand p {
+        color: black !important;
+    }
 
-  .brand h1 {
-    color: black !important;
-    font-size: 13pt;
-    margin-bottom: 2mm;
-  }
+    .logo {
+        color: black;
+        border-color: #b18a32;
+    }
 
-  .brand p {
-    color: #333 !important;
-    font-size: 8pt;
-  }
+    .container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
 
-  .container {
-    max-width: none;
-    width: 100%;
-    margin: 3mm 0 0;
-    padding: 0;
-  }
+    .page-title {
+        margin: 4mm 0;
+    }
 
-  .page-title { margin: 0 0 3mm; }
+    .page-title h2 {
+        font-size: 16pt;
+    }
 
-  .page-title h2 {
-    font-size: 12pt;
-    margin: 0 0 1mm;
-  }
+    .page-title p {
+        font-size: 9pt;
+    }
 
-  .page-title p { font-size: 8pt; }
+    .info-card {
+        padding: 3mm;
+        margin-bottom: 4mm;
+        box-shadow: none;
+    }
 
-  .table-card {
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-    overflow: visible;
-  }
+    .sheet-card {
+        width: 100%;
+        border: 1px solid #aaa;
+        box-shadow: none;
+        overflow: visible;
+    }
 
-  .table-heading {
-    padding: 2mm 0;
-    border-bottom: 1px solid #999;
-  }
+    .sheet-heading {
+        padding: 3mm;
+    }
 
-  .table-heading h3 { font-size: 10pt; }
-  .status { font-size: 7pt; }
-  .table-tools { display: none !important; }
+    .sheet-viewer {
+        width: 100%;
+        height: 180mm;
+        min-height: 0;
+        overflow: visible;
+    }
 
-  .table-wrap {
-    overflow: visible !important;
-    max-height: none !important;
-    width: 100% !important;
-  }
-
-  table {
-    width: 100% !important;
-    table-layout: fixed !important;
-    border-collapse: collapse !important;
-    font-size: 6.5pt !important;
-  }
-
-  thead { display: table-header-group; }
-
-  tr {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  th, td {
-    min-width: 0 !important;
-    padding: 1.2mm .8mm !important;
-    font-size: 6.5pt !important;
-    line-height: 1.15 !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-    word-break: break-word !important;
-    border: .4pt solid #888 !important;
-  }
-
-  th {
-    background: #eaf0f8 !important;
-    color: black !important;
-    font-weight: bold;
-  }
-
-  tbody tr:nth-child(even) {
-    background: #f7f7f7 !important;
-  }
-
-  .empty { padding: 5mm; font-size: 9pt; }
+    .sheet-viewer iframe {
+        display: block;
+        width: 100%;
+        height: 180mm;
+        border: 0;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="header">
-  <div class="header-content">
-    <div class="logo">M</div>
-    <div class="brand">
-      <h1>MELBA PRINTING, PUBLISHING &amp; PACKAGING S.C.</h1>
-      <p>Technical Department | Maintenance Management</p>
+    <div class="header-content">
+        <div class="brand">
+            <div class="logo">M</div>
+
+            <div>
+                <h1>MELBA PRINTING, PUBLISHING &amp; PACKAGING S.C.</h1>
+                <p>Technical Department | Maintenance Management</p>
+            </div>
+        </div>
     </div>
-  </div>
 </header>
 
+<!-- MAIN REPORT -->
 <main class="container">
-  <section class="page-title">
-    <h2>Technical Report Dashboard</h2>
-    
-  </section>
 
-  <div class="actions no-print">
-    <a class="btn btn-back" href="https://etachali2-prog.github.io/all/">← Back</a>
-    <button class="btn btn-print" type="button" onclick="window.print()">🖨 Print A4 Landscape</button>
-    <button class="btn btn-refresh" type="button" onclick="loadSheet()">↻ Refresh Data</button>
-  </div>
+    <section class="page-title">
+        <h2>Technical Report Dashboard</h2>
+        <p>
+            Access and review technical records using the report viewer below.
+        </p>
+    </section>
 
-  
+    <!-- ACTION BUTTONS -->
+    <div class="actions no-print">
 
-  
+        <a class="btn btn-back"
+           href="https://etachali2-prog.github.io/all/">
+            ← Back
+        </a>
 
-  <section class="table-card">
-   
+        <button class="btn btn-print" onclick="window.print()">
+            🖨 Print This Sheet
+        </button>
 
-    <div class="table-tools no-print">
-      <input type="search" id="searchInput" placeholder="Search any column…" aria-label="Search report" oninput="renderTable()">
-      <span class="count" id="recordCount"></span>
+        <button class="btn btn-refresh" onclick="refreshSheet()">
+            ↻ Refresh Sheet
+        </button>
+
     </div>
 
-    <div class="table-wrap">
-      <table id="reportTable">
-        <thead></thead>
-       
-      </table>
-    </div>
-  </section>
+    <!-- INFORMATION CARD -->
+    <section class="info-card">
+        <div class="info-icon">📊</div>
+
+        <div>
+            <h3>Technical Records</h3>
+            <p>
+                View the latest information available in the published
+                Google Sheet. Use the spreadsheet controls to review
+                its rows and columns.
+            </p>
+        </div>
+    </section>
+
+    <!-- GOOGLE SHEET -->
+    <section class="sheet-card">
+
+        <div class="sheet-heading">
+            <h3>Technical Data Sheet</h3>
+            <span>Google Sheets Viewer</span>
+        </div>
+
+        <div class="sheet-viewer">
+            <iframe
+                id="sheetFrame"
+                title="MELBA Technical Google Sheet"
+                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTrhJvN7IdtRcSa6up1MRzgUVeM_RKUPvq8XIxsZPxO3M0TMH9CQ55fcEYMgS4WTno64TcA1VIw35gK/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+                loading="lazy">
+            </iframe>
+        </div>
+
+    </section>
+
 </main>
 
-<footer class="footer">MELBA Technical Department | Reliable Maintenance Records</footer>
+<!-- FOOTER -->
+<footer class="footer">
+    MELBA Technical Department | Reliable Maintenance Records
+</footer>
 
 <script>
-/*
-  Published CSV source.
-  Change CSV_URL if this report uses another Google Sheet.
-*/
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTrhJvN7IdtRcSa6up1MRzgUVeM_RKUPvq8XIxsZPxO3M0TMH9CQ55fcEYMgS4WTno64TcA1VIw35gK/pub?gid=0&single=true&output=csv";
+function refreshSheet() {
+    const frame = document.getElementById("sheetFrame");
 
-let headers = [];
-let records = [];
+    const sheetURL =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vTrhJvN7IdtRcSa6up1MRzgUVeM_RKUPvq8XIxsZPxO3M0TMH9CQ55fcEYMgS4WTno64TcA1VIw35gK/pubhtml?gid=0&single=true&widget=true&headers=false";
 
-function parseCSV(text) {
-  const rows = [];
-  let row = [];
-  let cell = "";
-  let quoted = false;
-
-  text = text.replace(/^\uFEFF/, "");
-
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-
-    if (ch === '"') {
-      if (quoted && text[i + 1] === '"') {
-        cell += '"';
-        i++;
-      } else {
-        quoted = !quoted;
-      }
-    } else if (ch === "," && !quoted) {
-      row.push(cell);
-      cell = "";
-    } else if ((ch === "\n" || ch === "\r") && !quoted) {
-      if (ch === "\r" && text[i + 1] === "\n") i++;
-      row.push(cell);
-
-      if (row.some(value => value.trim() !== "")) {
-        rows.push(row);
-      }
-
-      row = [];
-      cell = "";
-    } else {
-      cell += ch;
-    }
-  }
-
-  if (cell.length || row.length) {
-    row.push(cell);
-    if (row.some(value => value.trim() !== "")) {
-      rows.push(row);
-    }
-  }
-
-  return rows;
+    frame.src = sheetURL + "&refresh=" + Date.now();
 }
-
-async function loadSheet() {
-  const status = document.getElementById("loadStatus");
-  status.textContent = "Loading records…";
-
-  try {
-    const response = await fetch(
-      CSV_URL + "&_=" + Date.now(),
-      { cache: "no-store" }
-    );
-
-    if (!response.ok) {
-      throw new Error("HTTP " + response.status);
-    }
-
-    const csvText = await response.text();
-    const rows = parseCSV(csvText);
-
-    if (!rows.length || !rows[0].length) {
-      throw new Error("No rows found. Check the published sheet.");
-    }
-
-    headers = rows[0].map(
-      (header, index) => header.trim() || ("Column " + (index + 1))
-    );
-
-    records = rows.slice(1)
-      .map(row => headers.map((_, index) => (row[index] ?? "").trim()))
-      .filter(row => row.some(value => value !== ""));
-
-    renderTable();
-    status.textContent = "Updated " + new Date().toLocaleTimeString();
-
-  } catch (error) {
-    status.textContent = "Could not load sheet data";
-
-    document.querySelector("#reportTable thead").innerHTML = "";
-    document.querySelector("#reportTable tbody").innerHTML = "";
-
-    const tr = document.createElement("tr");
-    const td = document.createElement("td");
-    td.className = "empty";
-    td.textContent =
-      "Unable to load the published Google Sheet. Check that the CSV link is published and publicly viewable, then click Refresh Data.";
-    tr.appendChild(td);
-    document.querySelector("#reportTable tbody").appendChild(tr);
-
-    document.getElementById("recordCount").textContent = "";
-    console.error(error);
-  }
-}
-
-function renderTable() {
-  const tableHead = document.querySelector("#reportTable thead");
-  const tableBody = document.querySelector("#reportTable tbody");
-  const query = document.getElementById("searchInput").value.trim().toLowerCase();
-
-  if (!headers.length) return;
-
-  tableHead.innerHTML = "";
-  const headRow = document.createElement("tr");
-
-  headers.forEach(header => {
-    const th = document.createElement("th");
-    th.textContent = header;
-    headRow.appendChild(th);
-  });
-
-  tableHead.appendChild(headRow);
-
-  const filtered = records.filter(row =>
-    !query || row.some(value => value.toLowerCase().includes(query))
-  );
-
-  tableBody.innerHTML = "";
-
-  if (!filtered.length) {
-    const tr = document.createElement("tr");
-    const td = document.createElement("td");
-    td.className = "empty";
-    td.colSpan = headers.length;
-    td.textContent = "No matching records found.";
-    tr.appendChild(td);
-    tableBody.appendChild(tr);
-  } else {
-    const fragment = document.createDocumentFragment();
-
-    filtered.forEach(row => {
-      const tr = document.createElement("tr");
-
-      headers.forEach((_, index) => {
-        const td = document.createElement("td");
-        td.textContent = row[index] || "";
-        tr.appendChild(td);
-      });
-
-      fragment.appendChild(tr);
-    });
-
-    tableBody.appendChild(fragment);
-  }
-
-  document.getElementById("recordCount").textContent =
-    filtered.length + " of " + records.length + " records";
-}
-
-loadSheet();
-setInterval(loadSheet, 60000);
 </script>
 
 </body>
 </html>
+```
