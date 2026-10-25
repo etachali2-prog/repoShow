@@ -335,7 +335,7 @@ function getPayload() {
 form.addEventListener("submit", async function(event) {
   event.preventDefault();
 
-  if (SCRIPT_URL === "PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE" ||
+  if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbxOP4tjJ77mQi3Vg2Ul9PP3KVERbDYzLLfzf_GTn5F2gKyIjz1EdH8ZJs21dJoMBnVw/exec" ||
       !SCRIPT_URL.startsWith("https://script.google.com/")) {
     showStatus(
       "Setup required: paste your deployed Google Apps Script /exec URL into SCRIPT_URL.",
