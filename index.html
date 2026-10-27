@@ -1,291 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MELBA Technical Department - Sheet Data</title>
+async function fetchSheetData() {
+    try {
+        const response = await fetch(SCRIPT_URL);
+        const data = await response.json();
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        if (data.length === 0) {
+            document.getElementById('statusMsg').innerText = "No records found in the sheet.";
+            return;
         }
 
-        body {
-            min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            background-image:
-                linear-gradient(
-                    rgba(4, 18, 45, 0.65),
-                    rgba(0, 35, 75, 0.75)
-                ),
-                url("https://th.bing.com/th/id/R.d87217d7ce2bd7b22f035551b9776d6c?rik=E6dE0qyzfKSe9g&pid=ImgRaw&r=0");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            background-attachment: fixed;
-            display: flex;
-            flex-direction: column;
-            color: white;
-        }
+        // Hide loading status, show table
+        document.getElementById('statusMsg').style.display = 'none';
+        document.getElementById('dataTable').style.display = 'table';
 
-        /* Top navigation bar */
-        .navbar {
-            width: 100%;
-            min-height: 85px;
-            padding: 18px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            background: rgba(5, 20, 45, 0.75);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(12px);
-        }
+        // Render Table Headers
+        const tableHeader = document.getElementById('tableHeader');
+        const headers = Object.keys(data[0]);
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.innerText = header;
+            tableHeader.appendChild(th);
+        });
 
-        .logo {
-            font-size: 23px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-        }
-
-        .logo span {
-            color: #54d6ff;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .nav-link {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            padding: 12px 25px;
-            border: 1px solid rgba(255, 255, 255, 0.45);
-            border-radius: 30px;
-            font-size: 15px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: 0.3s ease;
-        }
-
-        .home-link {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .forms-link {
-            background: linear-gradient(135deg, #008cff, #00c6ff);
-            border-color: transparent;
-            box-shadow: 0 5px 20px rgba(0, 170, 255, 0.3);
-        }
-
-        .nav-link:hover {
-            transform: translateY(-4px);
-            background: white;
-            color: #06366a;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Container Section */
-        .container {
-            flex: 1;
-            width: 90%;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 18px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .container h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #54d6ff;
-            text-align: center;
-        }
-
-        /* Search input */
-        .search-box {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 20px;
-            font-size: 15px;
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            background: rgba(0, 0, 0, 0.2);
-            color: white;
-            outline: none;
-        }
-
-        .search-box input::placeholder {
-            color: #b0d4ff;
-        }
-
-        /* Table Styling */
-        .table-wrapper {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            padding: 14px 18px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        th {
-            background-color: rgba(0, 140, 255, 0.35);
-            color: #83e5ff;
-            font-size: 15px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        tr:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        td {
-            font-size: 14px;
-            color: #e4efff;
-        }
-
-        .status-msg {
-            text-align: center;
-            padding: 20px;
-            font-size: 16px;
-            color: #83e5ff;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 20px 15px;
-            background: rgba(5, 20, 45, 0.75);
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            color: #d5e6fa;
-            font-size: 13px;
-        }
-
-        footer span {
-            color: #54d6ff;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navigation -->
-    <header class="navbar">
-        <div class="logo">
-            MELBA <span>TECHNICAL</span>
-        </div>
-
-        <nav class="nav-links">
-            <a class="nav-link home-link" href="https://etachali2-prog.github.io/To-home/">HOME</a>
-            <a class="nav-link forms-link" href="https://etachali2-prog.github.io/all/">FORMS ↗</a>
-        </nav>
-    </header>
-
-    <!-- Main Content Table Container -->
-    <main class="container">
-        <h1>Maintenance & Technical Records</h1>
-
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search records..." onkeyup="filterTable()">
-        </div>
-
-        <div id="statusMsg" class="status-msg">Loading data ...</div>
-
-        <div class="table-wrapper">
-            <table id="dataTable" style="display: none;">
-                <thead>
-                    <tr id="tableHeader"></tr>
-                </thead>
-                <tbody id="tableBody"></tbody>
-            </table>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        © 2026 <span>MELBA PRINTING PUBLISHING & PACKAGING S.C.</span> | Technical Department
-    </footer>
-
-    <script>
-        // Replace with your Google Apps Script Web App URL
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwzJ1qUxUl_vROSz4gaHqqzqiIrPVZLSe6TErJusxM2eNC8FpK9AN49_2msecSG2oPXEA/exec";
-
-        async function fetchSheetData() {
-            try {
-                const response = await fetch(SCRIPT_URL);
-                const data = await response.json();
-
-                if (data.length === 0) {
-                    document.getElementById('statusMsg').innerText = "No records found in the sheet.";
-                    return;
-                }
-
-                // Hide loading status, show table
-                document.getElementById('statusMsg').style.display = 'none';
-                document.getElementById('dataTable').style.display = 'table';
-
-                // Render Table Headers
-                const tableHeader = document.getElementById('tableHeader');
-                const headers = Object.keys(data[0]);
-                headers.forEach(header => {
-                    const th = document.createElement('th');
-                    th.innerText = header;
-                    tableHeader.appendChild(th);
-                });
-
-                // Render Table Body
-                const tableBody = document.getElementById('tableBody');
-                data.forEach(row => {
-                    const tr = document.createElement('tr');
-                    headers.forEach(header => {
-                        const td = document.createElement('td');
-                        td.innerText = row[header] !== undefined ? row[header] : '';
-                        tr.appendChild(td);
-                    });
-                    tableBody.appendChild(tr);
-                });
-
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                document.getElementById('statusMsg').innerText = "Failed to load sheet data. Please check your Web App URL.";
+        // Helper function to extract only YYYY-MM-DD
+        function formatDateOnly(value) {
+            if (typeof value === 'string' && value.match(/^\d{4}-\d{2}-\d{2}T/)) {
+                return value.split('T')[0];
             }
+            return value !== undefined ? value : '';
         }
 
-        function filterTable() {
-            const filter = document.getElementById('searchInput').value.toLowerCase();
-            const rows = document.querySelectorAll('#tableBody tr');
-
-            rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                row.style.display = text.includes(filter) ? '' : 'none';
+        // Render Table Body
+        const tableBody = document.getElementById('tableBody');
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            headers.forEach(header => {
+                const td = document.createElement('td');
+                td.innerText = formatDateOnly(row[header]);
+                tr.appendChild(td);
             });
-        }
+            tableBody.appendChild(tr);
+        });
 
-        // Fetch data on page load
-        window.onload = fetchSheetData;
-    </script>
-</body>
-</html>
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        document.getElementById('statusMsg').innerText = "Failed to load sheet data. Please check your Web App URL.";
+    }
+}
