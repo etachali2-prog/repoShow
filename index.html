@@ -98,8 +98,8 @@
         .container {
             flex: 1;
             width: 95%;
-            max-width: 1350px;
-            margin: 30px auto;
+            max-width: 1400px;
+            margin: 40px auto;
             padding: 25px;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.25);
@@ -109,7 +109,7 @@
         }
 
         .container h1 {
-            font-size: 26px;
+            font-size: 28px;
             margin-bottom: 20px;
             color: #54d6ff;
             text-align: center;
@@ -171,53 +171,34 @@
             opacity: 0.9;
         }
 
-        /* Table Wrapper with controlled screen width and vertical/horizontal scroll */
+        /* Table Styling */
         .table-wrapper {
-            max-height: 65vh;
-            overflow-y: auto;
             overflow-x: auto;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: fixed; /* Helps columns respect defined widths and wrap text */
+            margin-top: 10px;
         }
 
         th, td {
-            padding: 12px 14px;
+            padding: 14px 16px;
             text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-            
-            /* Text wrapping enabled to keep columns compact */
-            white-space: normal;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            white-space: nowrap;
         }
 
-        /* Give specific sizing control to table columns to control width */
-        th:nth-child(1), td:nth-child(1) { width: 120px; } /* Date */
-        th:nth-child(2), td:nth-child(2) { width: 130px; } /* Department */
-        th:nth-child(3), td:nth-child(3) { width: 140px; } /* MachineName */
-        th:nth-child(8), td:nth-child(8) { width: 220px; } /* ProblemDescription (wider) */
-        th:nth-child(10), td:nth-child(10) { width: 220px; } /* MaintenanceActivity (wider) */
-
         th {
-            position: sticky;
-            top: 0;
-            background-color: rgba(2, 25, 55, 0.95);
+            background-color: rgba(0, 140, 255, 0.35);
             color: #83e5ff;
-            font-size: 13px;
-            letter-spacing: 0.8px;
+            font-size: 14px;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            z-index: 2;
         }
 
         tr:hover {
-            background-color: rgba(255, 255, 255, 0.08);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         td {
@@ -282,14 +263,11 @@
             }
 
             .table-wrapper {
-                max-height: none !important;
                 overflow: visible !important;
-                border: none !important;
             }
 
             table {
                 width: 100% !important;
-                table-layout: auto !important;
                 border-collapse: collapse !important;
             }
 
@@ -298,7 +276,8 @@
                 padding: 4px 5px !important;
                 font-size: 7.5px !important;
                 color: black !important;
-                width: auto !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
             }
 
             th {
