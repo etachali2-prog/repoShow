@@ -97,8 +97,8 @@
         /* Container Section */
         .container {
             flex: 1;
-            width: 96%;
-            max-width: 1500px;
+            width: 95%;
+            max-width: 1350px;
             margin: 30px auto;
             padding: 25px;
             background: rgba(255, 255, 255, 0.1);
@@ -171,71 +171,49 @@
             opacity: 0.9;
         }
 
-        /* Table Wrapper with spreadsheet-like viewport */
+        /* Table Wrapper with controlled screen width and vertical/horizontal scroll */
         .table-wrapper {
-            max-height: 70vh;
+            max-height: 65vh;
             overflow-y: auto;
             overflow-x: auto;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            background: rgba(0, 10, 25, 0.4);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: fixed; /* Ensures strict cell sizing and wrapping like Google Sheets */
+            table-layout: fixed; /* Helps columns respect defined widths and wrap text */
         }
 
         th, td {
             padding: 12px 14px;
             text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
             
-            /* Google Sheets-like wrapping style */
+            /* Text wrapping enabled to keep columns compact */
             white-space: normal;
             word-wrap: break-word;
             overflow-wrap: break-word;
-            vertical-align: top;
         }
 
-        /* Spreadsheet Column Width Allocations */
-        th:nth-child(1), td:nth-child(1) { width: 130px; } /* Date */
-        th:nth-child(2), td:nth-child(2) { width: 140px; } /* Department */
-        th:nth-child(3), td:nth-child(3) { width: 130px; } /* RequestedBy */
-        th:nth-child(4), td:nth-child(4) { width: 120px; } /* RequestedTime */
-        th:nth-child(5), td:nth-child(5) { width: 150px; } /* MachineName */
-        th:nth-child(6), td:nth-child(6) { width: 120px; } /* Location */
-        th:nth-child(7), td:nth-child(7) { width: 140px; } /* MaintenanceType */
-        th:nth-child(8), td:nth-child(8) { width: 240px; } /* ProblemDescription (Wrapped) */
-        th:nth-child(9), td:nth-child(9) { width: 110px; } /* PriorityLevel */
-        th:nth-child(10), td:nth-child(10) { width: 240px; } /* MaintenanceActivity (Wrapped) */
-        th:nth-child(11), td:nth-child(11) { width: 150px; } /* AssignedTechnician */
-        th:nth-child(12), td:nth-child(12) { width: 130px; } /* TimeActionTaken */
-        th:nth-child(13), td:nth-child(13) { width: 130px; } /* WorkStartTime */
-        th:nth-child(14), td:nth-child(14) { width: 130px; } /* WorkCompletionTime */
-        th:nth-child(15), td:nth-child(15) { width: 130px; } /* DowntimeDuration */
-        th:nth-child(16), td:nth-child(16) { width: 160px; } /* SpareItemName */
-        th:nth-child(17), td:nth-child(17) { width: 130px; } /* SparePartNo */
-        th:nth-child(18), td:nth-child(18) { width: 100px; } /* SpareUnit */
-        th:nth-child(19), td:nth-child(19) { width: 110px; } /* SpareQuantity */
-        th:nth-child(20), td:nth-child(20) { width: 180px; } /* SpareRemark */
-        th:nth-child(21), td:nth-child(21) { width: 140px; } /* MaintenanceStatus */
-        th:nth-child(22), td:nth-child(22) { width: 180px; } /* PendingReason */
-        th:nth-child(23), td:nth-child(23) { width: 150px; } /* SupervisorName */
-        th:nth-child(24), td:nth-child(24) { width: 170px; } /* TechnicTeamLeaderName */
+        /* Give specific sizing control to table columns to control width */
+        th:nth-child(1), td:nth-child(1) { width: 120px; } /* Date */
+        th:nth-child(2), td:nth-child(2) { width: 130px; } /* Department */
+        th:nth-child(3), td:nth-child(3) { width: 140px; } /* MachineName */
+        th:nth-child(8), td:nth-child(8) { width: 220px; } /* ProblemDescription (wider) */
+        th:nth-child(10), td:nth-child(10) { width: 220px; } /* MaintenanceActivity (wider) */
 
         th {
             position: sticky;
             top: 0;
-            background-color: #041838;
+            background-color: rgba(2, 25, 55, 0.95);
             color: #83e5ff;
-            font-size: 12px;
+            font-size: 13px;
             letter-spacing: 0.8px;
             text-transform: uppercase;
             z-index: 2;
-            border-bottom: 2px solid #54d6ff;
         }
 
         tr:hover {
@@ -307,7 +285,6 @@
                 max-height: none !important;
                 overflow: visible !important;
                 border: none !important;
-                background: white !important;
             }
 
             table {
