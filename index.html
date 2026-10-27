@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MELBA Technical Department - Sheet Data</title>
 
+    <!-- SheetJS CDN for Exporting Table Data to Excel (.xlsx) -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -112,10 +115,10 @@
             text-align: center;
         }
 
-        /* Controls Toolbar (Search + Print Button) */
+        /* Controls Toolbar (Search + Buttons) */
         .controls-bar {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
@@ -140,21 +143,30 @@
             color: #b0d4ff;
         }
 
-        .print-btn {
-            padding: 12px 25px;
-            font-size: 15px;
+        .btn {
+            padding: 12px 22px;
+            font-size: 14px;
             font-weight: bold;
             color: white;
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
             border: none;
             border-radius: 25px;
             cursor: pointer;
             transition: 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 114, 255, 0.3);
             white-space: nowrap;
         }
 
-        .print-btn:hover {
+        .print-btn {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            box-shadow: 0 5px 20px rgba(0, 114, 255, 0.3);
+        }
+
+        .excel-btn {
+            background: linear-gradient(135deg, #1d976c, #93f9b9);
+            color: #042512;
+            box-shadow: 0 5px 20px rgba(29, 151, 108, 0.3);
+        }
+
+        .btn:hover {
             transform: translateY(-2px);
             opacity: 0.9;
         }
@@ -304,7 +316,8 @@
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Search records..." onkeyup="filterTable()">
             </div>
-            <button class="print-btn" onclick="window.print()">🖨️ Print A4 Report</button>
+            <button class="btn print-btn" onclick="window.print()">🖨️ Print A4 Report</button>
+            <button class="btn excel-btn" onclick="exportToExcel()">📊 Export Excel (.xlsx)</button>
         </div>
 
         <div id="statusMsg" class="status-msg">Loading data ...</div>
@@ -356,7 +369,6 @@
                     if (typeof value === 'string' && value.match(/^\d{4}-\d{2}-\d{2}T/)) {
                         const date = new Date(value);
                         if (!isNaN(date.getTime())) {
-                            // Adjusts UTC to local browser timezone (Date + Time)
                             const year = date.getFullYear();
                             const month = String(date.getMonth() + 1).padStart(2, '0');
                             const day = String(date.getDate()).padStart(2, '0');
@@ -374,7 +386,6 @@
                     const tr = document.createElement('tr');
                     headers.forEach(header => {
                         const td = document.createElement('td');
-                        // Applies local time adjustment only to the Date/Timestamp columns
                         if (header.toLowerCase().includes('date') || header.toLowerCase().includes('time')) {
                             td.innerText = formatLocalDateTime(row[header]);
                         } else {
@@ -399,6 +410,17 @@
                 const text = row.innerText.toLowerCase();
                 row.style.display = text.includes(filter) ? '' : 'none';
             });
+        }
+
+        // Export active HTML table to Excel (.xlsx) file
+        function exportToExcel() {
+            const table = document.getElementById("dataTable");
+            if (!table || table.style.display === "none") {
+                alert("No table data available to export.");
+                return;
+            }
+            const wb = XLSX.utils.table_to_book(table, { sheet: "Maintenance Records" });
+            XLSX.writeFile(wb, "MELBA_Maintenance_Records.xlsx");
         }
 
         // Fetch data on page load
