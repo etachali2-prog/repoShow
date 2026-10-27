@@ -94,8 +94,8 @@
         /* Container Section */
         .container {
             flex: 1;
-            width: 90%;
-            max-width: 1200px;
+            width: 95%;
+            max-width: 1400px;
             margin: 40px auto;
             padding: 25px;
             background: rgba(255, 255, 255, 0.1);
@@ -171,15 +171,16 @@
         }
 
         th, td {
-            padding: 14px 18px;
+            padding: 14px 16px;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            white-space: nowrap;
         }
 
         th {
             background-color: rgba(0, 140, 255, 0.35);
             color: #83e5ff;
-            font-size: 15px;
+            font-size: 14px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -189,7 +190,7 @@
         }
 
         td {
-            font-size: 14px;
+            font-size: 13px;
             color: #e4efff;
         }
 
@@ -215,11 +216,11 @@
             font-weight: bold;
         }
 
-        /* =================== A4 PRINT STYLING =================== */
+        /* =================== A4 COMPACT PRINT STYLING =================== */
         @media print {
             @page {
                 size: A4 landscape;
-                margin: 10mm;
+                margin: 5mm;
             }
 
             body {
@@ -244,8 +245,8 @@
 
             .container h1 {
                 color: #000 !important;
-                font-size: 20px !important;
-                margin-bottom: 15px !important;
+                font-size: 14px !important;
+                margin-bottom: 8px !important;
                 text-align: left !important;
             }
 
@@ -255,19 +256,22 @@
 
             table {
                 width: 100% !important;
-                font-size: 9px !important;
                 border-collapse: collapse !important;
             }
 
             th, td {
-                border: 1px solid #444 !important;
-                padding: 6px 8px !important;
+                border: 1px solid #333 !important;
+                padding: 4px 5px !important;
+                font-size: 7.5px !important;
                 color: black !important;
+                white-space: normal !important; /* Allows long text to wrap instead of cutting off */
+                word-wrap: break-word !important;
             }
 
             th {
-                background-color: #e0e0e0 !important;
+                background-color: #dcdcdc !important;
                 color: black !important;
+                font-weight: bold;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
