@@ -264,7 +264,7 @@
                 padding: 4px 5px !important;
                 font-size: 7.5px !important;
                 color: black !important;
-                white-space: normal !important; /* Allows long text to wrap instead of cutting off */
+                white-space: normal !important;
                 word-wrap: break-word !important;
             }
 
@@ -351,10 +351,19 @@
                     tableHeader.appendChild(th);
                 });
 
-                // Helper function to extract only YYYY-MM-DD from ISO timestamp strings
-                function formatDateOnly(value) {
+                // Helper function to convert UTC timestamps to Local Date & Time
+                function formatLocalDateTime(value) {
                     if (typeof value === 'string' && value.match(/^\d{4}-\d{2}-\d{2}T/)) {
-                        return value.split('T')[0];
+                        const date = new Date(value);
+                        if (!isNaN(date.getTime())) {
+                            // Adjusts UTC to local browser timezone (Date + Time)
+                            const year = date.getFullYear();
+                            const month = String(date.getMonth() + 1).padStart(2, '0');
+                            const day = String(date.getDate()).padStart(2, '0');
+                            const hours = String(date.getHours()).padStart(2, '0');
+                            const minutes = String(date.getMinutes()).padStart(2, '0');
+                            return `${year}-${month}-${day} ${hours}:${minutes}`;
+                        }
                     }
                     return value !== undefined ? value : '';
                 }
@@ -365,7 +374,12 @@
                     const tr = document.createElement('tr');
                     headers.forEach(header => {
                         const td = document.createElement('td');
-                        td.innerText = formatDateOnly(row[header]);
+                        // Applies local time adjustment only to the Date/Timestamp columns
+                        if (header.toLowerCase().includes('date') || header.toLowerCase().includes('time')) {
+                            td.innerText = formatLocalDateTime(row[header]);
+                        } else {
+                            td.innerText = row[header] !== undefined ? row[header] : '';
+                        }
                         tr.appendChild(td);
                     });
                     tableBody.appendChild(tr);
